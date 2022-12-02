@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "pizzeriadb",
+            "database": "pizzeriadb",
+            "username": "janiecee",
+            "password": "2121"
+        }
+    ]
+}
