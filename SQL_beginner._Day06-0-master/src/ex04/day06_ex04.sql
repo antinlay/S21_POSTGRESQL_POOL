@@ -11,5 +11,5 @@ ALTER TABLE person_discounts
 ADD CONSTRAINT ch_range_discount CHECK (
         discount BETWEEN 0 AND 100
     );
--- INSERT INTO person_discounts (id, person_id, pizzeria_id, discount)
--- VALUES (22, NULL, NULL, NULL)
+INSERT INTO person_discounts (id, person_id, pizzeria_id, discount)
+VALUES (17, 1, 2, 3)

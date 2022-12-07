@@ -15,7 +15,7 @@ VALUES (
             WHERE name = 'Dominos'
         ),
         '2022-02-24'
-    )
+    );
 INSERT INTO person_visits
 VALUES (
         (
@@ -33,4 +33,14 @@ VALUES (
             WHERE name = 'Dominos'
         ),
         '2022-02-24'
+    )
+INSERT INTO person_visits
+VALUES (
+        (
+            SELECT max(id) + 1
+            FROM person_visits
+        ),
+        9,
+        3,
+        '2022-01-08'
     )
