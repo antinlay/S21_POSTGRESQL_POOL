@@ -1,0 +1,1 @@
+COMMENT ON TABLE person_discounts IS 'This table describe discount all persons have visits to pizzeria';
