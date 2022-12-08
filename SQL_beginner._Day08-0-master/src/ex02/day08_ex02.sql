@@ -1,0 +1,56 @@
+-- SESSION 1
+-- BEGIN
+-- pizzeriadb=*# select * from pizzeria where name = 'Pizza Hut'
+-- pizzeriadb-*# ;
+--  id |   name    | rating 
+--+-----------+--------
+--   1 | Pizza Hut |    3.6
+-- -- (1 row)
+-- pizzeriadb=*# update pizzeria
+-- pizzeriadb-*# rating = 4
+-- pizzeriadb-*# where name = 'Pizza Hut';
+-- ERROR:  syntax error at or near "="
+-- LINE 2: rating = 4
+--    ^
+-- pizzeriadb=!# update pizzeria
+-- set rating = 4
+-- where name = 'Pizza Hut';
+-- ERROR:  current transaction is aborted, commands ignored until end of transaction block
+-- pizzeriadb=!# begin;
+-- ERROR:  current transaction is aborted, commands ignored until end of transaction block
+-- pizzeriadb=!# end;
+-- ROLLBACK
+-- pizzeriadb=# begin;
+-- BEGIN
+-- pizzeriadb=*# update pizzeria
+-- pizzeriadb-*# set rating = 4
+-- pizzeriadb-*# where name = 'Pizza Hut';
+-- UPDATE 1
+-- pizzeriadb=*# commit;
+-- COMMIT
+-- pizzeriadb=# select * from pizzeria where name = 'Pizza Hut'
+-- ;
+--  id |   name    | rating 
+--+-----------+--------
+--   1 | Pizza Hut |      4
+-- (1 row)
+--  SESSION 2
+-- pizzeriadb=# BEGIN TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+-- BEGIN
+-- pizzeriadb=*# select * from pizzeria where name = 'Pizza Hut';
+--  id |   name    | rating 
+-- ----+-----------+--------
+--   1 | Pizza Hut |    3.6
+-- (1 row)
+-- pizzeriadb=*# update pizzeria
+-- pizzeriadb-*# set rating = 3.6
+-- pizzeriadb-*# where name = 'Pizza Hut'
+-- pizzeriadb-*# ;
+-- ERROR:  could not serialize access due to concurrent update
+-- pizzeriadb=!# commit;
+-- ROLLBACK
+-- pizzeriadb=# select * from pizzeria where name = 'Pizza Hut';
+--  id |   name    | rating 
+-- ----+-----------+--------
+--   1 | Pizza Hut |      4
+-- (1 row)

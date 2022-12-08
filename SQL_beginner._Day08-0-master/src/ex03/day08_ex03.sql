@@ -1,0 +1,38 @@
+-- SESSION 1: 
+-- pizzeriadb=# begin transaction isolation level read committed;
+-- BEGIN
+-- pizzeriadb=*# select * from pizzeria where name = 'Pizza Hut'
+-- ;
+--  id |   name    | rating 
+-- ----+-----------+--------
+--   1 | Pizza Hut |      4
+-- (1 row)
+-- pizzeriadb=*# select * from pizzeria where name = 'Pizza Hut'
+-- ;
+--  id |   name    | rating 
+-- ----+-----------+--------
+--   1 | Pizza Hut |    3.6
+-- (1 row)
+-- pizzeriadb=*# commit;
+-- COMMIT
+-- pizzeriadb=# select * from pizzeria where name = 'Pizza Hut'
+-- ;
+--  id |   name    | rating 
+-- ----+-----------+--------
+--   1 | Pizza Hut |    3.6
+-- (1 row)
+-- SESSION 2: 
+-- pizzeriadb=# begin transaction isolation level read committed;
+-- BEGIN
+-- pizzeriadb=*# update pizzeria
+-- set rating = 3.6
+-- where name = 'Pizza Hut'
+-- ;
+-- UPDATE 1
+-- pizzeriadb=*# commit;
+-- COMMIT
+-- pizzeriadb=# select * from pizzeria where name = 'Pizza Hut'; 
+--  id |   name    | rating 
+-- ----+-----------+--------
+--   1 | Pizza Hut |    3.6
+-- (1 row)

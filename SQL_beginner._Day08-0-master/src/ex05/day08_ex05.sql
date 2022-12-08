@@ -1,0 +1,45 @@
+-- SESSION 1:
+-- pizzeriadb=# begin;
+-- BEGIN
+-- pizzeriadb=*# SELECT SUM(rating) FROM pizzeria
+-- ;
+--  sum  
+-- ------
+--  21.9
+-- (1 row)
+-- pizzeriadb=*# SELECT SUM(rating) FROM pizzeria
+-- ;
+--  sum  
+-- ------
+--  19.9
+-- (1 row)
+-- pizzeriadb=*# commit;
+-- COMMIT
+-- pizzeriadb=# SELECT SUM(rating) FROM pizzeria
+-- ;
+--  sum  
+-- ------
+--  19.9
+-- (1 row)
+-- SESSION 2:
+-- pizzeriadb=# begin;
+-- BEGIN
+-- pizzeriadb=*# SELECT SUM(rating) FROM pizzeria
+-- pizzeriadb-*# ;
+--  sum  
+-- ------
+--  21.9
+-- (1 row)
+-- pizzeriadb=*# update pizzeria
+-- set rating = 1
+-- where name = 'Pizza Hut'
+-- ;
+-- UPDATE 1
+-- pizzeriadb=*# commit;
+-- COMMIT
+-- pizzeriadb=# SELECT SUM(rating) FROM pizzeria
+-- ;
+--  sum  
+-- ------
+--  19.9
+-- (1 row)

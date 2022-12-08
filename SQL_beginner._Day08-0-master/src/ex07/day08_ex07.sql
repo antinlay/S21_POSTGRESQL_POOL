@@ -1,0 +1,30 @@
+-- SESSION 1:
+-- pizzeriadb=# begin;
+-- BEGIN
+-- pizzeriadb=*# update pizzeria
+-- pizzeriadb-*# set rating = 5
+-- pizzeriadb-*# where id = 1;
+-- UPDATE 1
+-- pizzeriadb=*# update pizzeria
+-- set rating = 5
+-- where id = 2;
+-- UPDATE 1
+-- pizzeriadb=*# commit;
+-- COMMIT
+-- SESSION 2:
+-- pizzeriadb=# begin;
+-- BEGIN
+-- pizzeriadb=*# update pizzeria
+-- set rating = 5
+-- where id = 2;
+-- UPDATE 1
+-- pizzeriadb=*# update pizzeria
+-- set rating = 5
+-- where id = 1;
+-- ERROR:  deadlock detected
+-- DETAIL:  Process 22422 waits for ShareLock on transaction 636; blocked by process 20776.
+-- Process 20776 waits for ShareLock on transaction 637; blocked by process 22422.
+-- HINT:  See server log for query details.
+-- CONTEXT:  while updating tuple (0,27) in relation "pizzeria"
+-- pizzeriadb=!# commit;
+-- ROLLBACK
